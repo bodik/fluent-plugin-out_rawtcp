@@ -94,7 +94,13 @@ module Fluent
         if @output_append_newline
           new_line_suf = "\n"
         end
-        return "#{record.to_json}#{new_line_suf}"
+        begin
+          msg = "#{record.to_json}#{new_line_suf}"
+        rescue Exception => e
+          log.error "exception '#{e}' during message processing '#{record.inspect}'"
+          msg = nil
+        end
+        return msg
       else
         return [tag, time, record].to_msgpack
       end
@@ -142,3 +148,5 @@ module Fluent
     end
   end
 end
+
+# vim: autoindent tabstop=2 shiftwidth=2 expandtab softtabstop=2 filetype=ruby
