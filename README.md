@@ -1,4 +1,4 @@
-# Raw MsgPack for Fluentd
+# Raw MsgPack/Json for Fluentd
 
 Used to chain fluentd -> logstash
 
